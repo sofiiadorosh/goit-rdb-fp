@@ -6,11 +6,12 @@
 
 ```
 data/infectious_cases.csv     — вихідний датасет
-01_load_data.sql              — 1. схема pandemic, імпорт CSV, перегляд даних
-02_normalize.sql              — 2. нормалізація до 3НФ (entities + infectious_cases_normalized)
-03_analysis.sql               — 3. AVG / MIN / MAX / SUM для Number_rabies, топ-10
-04_year_difference.sql        — 4. дата 1 січня, поточна дата, різниця в роках
-05_functions.sql              — 5. функції years_since() та avg_cases_per_period()
+common.sql                    — усі запити (завдання 1–5) в одному файлі
+tasks/01_load_data.sql        — 1. схема pandemic, імпорт CSV, перегляд даних
+tasks/02_normalize.sql        — 2. нормалізація до 3НФ
+tasks/03_analysis.sql         — 3. AVG / MIN / MAX / SUM для Number_rabies, топ-10
+tasks/04_year_difference.sql  — 4. дата 1 січня, поточна дата, різниця в роках
+tasks/05_functions.sql        — 5. функції years_since() та avg_cases_per_period()
 screenshots/                  — скриншоти таблиць, запитів і результатів
 ```
 
@@ -19,10 +20,16 @@ screenshots/                  — скриншоти таблиць, запит�
 Запускайте з кореня репозиторію, бо `\copy` бере шлях до CSV відносно поточної директорії:
 
 ```bash
-for f in 0*.sql; do psql -d <database> -v ON_ERROR_STOP=1 -f "$f"; done
+psql -d <database> -v ON_ERROR_STOP=1 -f common.sql
 ```
 
-Якщо працюєте в DBeaver або pgAdmin, виконайте `01_load_data.sql` без рядка `\copy`, а `data/infectious_cases.csv` імпортуйте в `pandemic.infectious_cases` через майстер імпорту. Після цього запустіть решту скриптів по черзі.
+Або по завданнях, по черзі:
+
+```bash
+for f in tasks/0*.sql; do psql -d <database> -v ON_ERROR_STOP=1 -f "$f"; done
+```
+
+Якщо працюєте в DBeaver або pgAdmin, виконайте `tasks/01_load_data.sql` (або блок «Завдання 1» з `common.sql`) без рядка `\copy`, а `data/infectious_cases.csv` імпортуйте в `pandemic.infectious_cases` через майстер імпорту. Після цього запустіть решту запитів.
 
 ## Хід виконання
 

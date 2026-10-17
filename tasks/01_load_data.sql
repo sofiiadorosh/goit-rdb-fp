@@ -25,7 +25,7 @@ CREATE TABLE infectious_cases (
 );
 
 -- Імпорт CSV. Запускати з кореня репозиторію:
---   psql -d <db> -f 01_load_data.sql
+--   psql -d <db> -f tasks/01_load_data.sql
 -- FORCE_NOT_NULL зберігає порожні клітинки як '' (а не NULL),
 -- тобто так само, як їх імпортує майстер імпорту DBeaver / pgAdmin.
 \copy infectious_cases FROM 'data/infectious_cases.csv' WITH (FORMAT csv, HEADER true, FORCE_NOT_NULL (code, number_yaws, polio_cases, cases_guinea_worm, number_rabies, number_malaria, number_hiv, number_tuberculosis, number_smallpox, number_cholera_cases))
